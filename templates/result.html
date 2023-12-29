@@ -2,80 +2,132 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analysis Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-        }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Analysis Results</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         background-color: #f4f4f4;
+         margin: 0;
+         padding: 0;
+         display: flex;
+         align-items: center;
+         flex-direction: column;
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+      }
 
-        div {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-        }
+      h1 {
+         text-align: center;
+         color: #333;
+      }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+      .main {
+         background-color: #fff;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         padding: 20px;
+         text-align: center;
+      }
 
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+      .firstnow {
+         flex-direction: row;
+         display: flex;
+      }
+
+      .firstsubrow {
+         margin: 0 1rem;
+         width: 30%;
+      }
+
+      .firstsubrow h3 {
+         font-weight: lighter;
+         word-wrap: normal
+      }
+
+      .vl {
+         border-left: 1px solid rgb(207, 203, 226);
+      }
+
+      .firstsubrow h1 {
+         font-weight: bolder;
+      }
+
+      button {
+         width: 10rem;
+         padding: 10px;
+         background-color: #007bff;
+         color: #fff;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         margin-top: 20px;
+      }
+
+      button:hover {
+         background-color: #0056b3;
+      }
+   </style>
 </head>
 
 <body>
-    <h1>Analysis Results</h1>
-    <div>
-        <p>Total Rows: {{ total_rows }}</p>
-        <p>Unique UUIDs: {{ unique_uuids_count }}</p>
-        <p>Total number of evidences : {{task_level_evidence}}</p>
-        <!-- Add more metrics as needed -->
+   <h1>Analysis Results</h1>
+   <div class="main">
+      <div class="firstnow">
+         <div class="firstsubrow">
+            <h3>Total number of rows: </h3>
+            <h1>{{ total_rows }}</h1>
+         </div>
+         <div class="vl"></div>
+         <div class="firstsubrow">
+            <h3>Number of unique users: </h3>
+            <h1>{{ unique_uuids_count }}</h1>
+         </div>
+         <div class="vl"></div>
+         <div class="firstsubrow">
+            <h3>No.of users who have added 2 task evidences: </h3>
+            <h1>{{ task_level_evidence }}</h1>
+         </div>
+      </div>
+      <div class="firstnow">
+         <div class="firstsubrow">
+            <h3>No.of users who have added more than 1 task evidences: </h3>
+            <h1>{{ task_level_evidence1 }}</h1>
+         </div>
+         <div class="vl"></div>
+         <div class="firstsubrow">
+            <h3>No. of users who have added sub-task: </h3>
+            <h1>{{ unique_uuids_count }}</h1>
+         </div>
+         <div class="vl"></div>
+         <div class="firstsubrow">
+            <h3>No.of users who have added task evidences: </h3>
+            <h1>{{ task_level_evidence }}</h1>
+         </div>
+               </div>
+      </div>
 
-        <!-- Download button -->
-        <button onclick="downloadCSV()">Download Metrics</button>
-    </div>
+      <!-- Add more metrics as needed -->
 
-    <script>
-        function downloadCSV() {
-            // Simulate a CSV file download (replace this with actual data)
-            const csvData = "Total Rows,Unique UUIDs,Total number of evidences\n{{ total_rows }},{{ unique_uuids_count }},{{task_level_evidence}}";
+      <!-- Download button -->
+      <button onclick="downloadCSV()">Download Metrics</button>
+   </div>
 
-            // Create a Blob containing the CSV data
-            const blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
+   <script>
+      function downloadCSV() {
+         // Simulate a CSV file download (replace this with actual data)
+         const csvData = "Total Rows,Number of unique use,No. of users who have added 2 task evidences,No. of users who have added more than 1 task evidences\n{{ total_rows }},{{ unique_uuids_count }},{{task_level_evidence}},{{ task_level_evidence1 }}";
 
-            // Create a link element and trigger a click to download the file
-            const link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "analysis_results.csv";
-            link.click();
-        }
-    </script>
+         // Create a Blob containing the CSV data
+         const blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
+
+         // Create a link element and trigger a click to download the file
+         const link = document.createElement("a");
+         link.href = window.URL.createObjectURL(blob);
+         link.download = "analysis_results.csv";
+         link.click();
+      }
+   </script>
 </body>
 
 </html>
